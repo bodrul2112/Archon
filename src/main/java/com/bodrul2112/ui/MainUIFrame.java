@@ -7,6 +7,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.bodrul2112.menu.MenuController;
 import com.bodrul2112.tab.TabController;
@@ -16,8 +17,8 @@ public class MainUIFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static final int FRAME_HEIGHT = 600;
 	public static final int FRAME_WIDTH = 400;
+	public static final int FRAME_HEIGHT = 800;
 	MenuController menuController = new MenuController();
 	TabController tabController = new TabController();
 	private JPanel contentPanel;
@@ -40,7 +41,7 @@ public class MainUIFrame extends JFrame
 		int menuHeight = menuController.getMenuBar().getHeight();
 		contentPanel = new JPanel();
 		contentPanel.setBackground(Color.WHITE);
-		contentPanel.setSize(new Dimension(FRAME_WIDTH,FRAME_HEIGHT));
+		contentPanel.setSize(new Dimension(FRAME_WIDTH-5,FRAME_HEIGHT-50));
 		contentPanel.setLocation(0, menuHeight);
 		contentPanel.setLayout(new BorderLayout());
 		

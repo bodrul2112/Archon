@@ -1,12 +1,16 @@
 package com.bodrul2112.tab;
 
+import java.awt.Color;
 import java.awt.Dimension;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import com.bodrul2112.ui.MainUIFrame;
 
 public class TabController {
 	
-	private static final int TABBED_PANE_HEIGHT = 500;
+	public static final int TABBED_PANE_HEIGHT = 400;
 	private final JTabbedPane jTabbedPane;
 	
 	public TabController() 
@@ -17,10 +21,16 @@ public class TabController {
 	public JTabbedPane createTabbedPane() 
 	{
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("LoadedProject", new LoadedProjectTabContentPanel());
-		tabbedPane.add("Confiuration", new ConfigurationTabContentPanel());
-		tabbedPane.add("Scaffoling Settings", new ScaffoldingOptionsTabContentPanel());
-		tabbedPane.setPreferredSize(new Dimension(MainUIFrame.FRAME_WIDTH, TABBED_PANE_HEIGHT));
+		
+		LoadedProjectTabContentPanel loadedProject = new LoadedProjectTabContentPanel();
+		ConfigurationTabContentPanel configuration = new ConfigurationTabContentPanel();
+		ScaffoldingOptionsTabContentPanel scaffoldingOptions = new ScaffoldingOptionsTabContentPanel(MainUIFrame.FRAME_WIDTH-70, TABBED_PANE_HEIGHT-10);
+		
+		tabbedPane.add("Loaded Project", loadedProject);
+		tabbedPane.add("Configuration", configuration);
+		tabbedPane.add("Scaffolding Settings", scaffoldingOptions.getScrollPane());
+		tabbedPane.setPreferredSize(new Dimension(MainUIFrame.FRAME_WIDTH-50, TABBED_PANE_HEIGHT));
+		
 		return tabbedPane;
 	}
 
