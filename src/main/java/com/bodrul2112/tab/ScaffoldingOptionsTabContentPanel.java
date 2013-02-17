@@ -24,14 +24,16 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.bodrul2112.scaffold.ScaffoldSettings;
 import com.bodrul2112.ui.MainUIFrame;
 
 public class ScaffoldingOptionsTabContentPanel
 {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
-	private final Set<String> selectedLibraries = new TreeSet<String>();
+
+	private final ScaffoldSettings scaffoldSettings = new ScaffoldSettings();
 	private final Map<String,JComboBox> comboBoxes = new HashMap<String, JComboBox>();
 	private final Map<String, JTextArea> textAreas = new HashMap<String, JTextArea>();
 	
@@ -48,7 +50,15 @@ public class ScaffoldingOptionsTabContentPanel
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setSize(new Dimension(width, 50));
-		buttonPanel.add(new JButton("Create Scaffold"));
+		
+		JButton createScaffold = new JButton("Create Scaffold");
+		createScaffold.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createScaffold();
+			}
+		});
+		buttonPanel.add(createScaffold);
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JPanel scrollContentPane = new JPanel();
@@ -83,7 +93,7 @@ public class ScaffoldingOptionsTabContentPanel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox comboBox = comboBoxes.get("libraries");
-				selectedLibraries.add(comboBox.getSelectedItem().toString());
+				scaffoldSettings.addLibrary(comboBox.getSelectedItem().toString());
 				setLibrariesTextAreaContent();
 			}
 		});
@@ -92,7 +102,7 @@ public class ScaffoldingOptionsTabContentPanel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox comboBox = comboBoxes.get("libraries");
-				selectedLibraries.remove(comboBox.getSelectedItem().toString());
+				scaffoldSettings.removeLibrary(comboBox.getSelectedItem().toString());
 				setLibrariesTextAreaContent();
 			}
 		});
@@ -133,14 +143,12 @@ public class ScaffoldingOptionsTabContentPanel
 	
 	private void setLibrariesTextAreaContent() 
 	{
-		String str = "";
-		for(String lib : selectedLibraries){
-			str += lib+",";
-		}
-		if(str.length()>1){
-			str = str.substring(0, str.length()-1);
-		}
-		textAreas.get("libraries").setText(str);
+		textAreas.get("libraries").setText(scaffoldSettings.getLibrariesAsCommaSeperatedString());
+	}
+	
+	private void createScaffold()
+	{
+		
 	}
 	
 	public JPanel getScrollPane() 
